@@ -1,7 +1,8 @@
+import Ristorante.Cibi.Menu;
 import Ristorante.Tavoli;
 
-import java.beans.XMLEncoder;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
@@ -10,12 +11,36 @@ public class Main {
     public static void main(String[] args) {
 
         loadTables(10);
+        Scanner in = new Scanner(System.in);
 
-        System.out.println(tavoli.get(0).getMenu().getCibo().get(2).getPrezzo());
-        System.out.println(tavoli.get(0).getMenu().getBibite().get(3).getPrezzo());
+        boolean yes = true;
+        while (yes) {
+            System.out.println("Seleziona tavolo (0 - " + tavoli.size() + ")");
+            int selected = 0;
+            try {
+                selected = Integer.valueOf(in.next());
+                for (int i = 0; i < tavoli.get(selected).getMenu().getCibo().size(); i++) {
+                    System.out.println(i + ": " + tavoli.get(selected).getMenu().getCibo().get(i).getPrezzo() + "$ " + tavoli.get(selected).getMenu().getCibo().get(i).getNome());
+                }
+                try {
+                    tavoli.get(selected).getOrdini().add(tavoli.get(selected).getMenu().getCibo().get(Integer.valueOf(in.next())));
+                } catch (Exception e){
+                    System.out.println("Invalid choice! Order failed.");
+                }
+                for (int i = 0; i < tavoli.get(selected).getMenu().getBibite().size(); i++) {
+                    System.out.println(i + ": " + tavoli.get(selected).getMenu().getBibite().get(i).getPrezzo() + "$ " + tavoli.get(selected).getMenu().getBibite().get(i).getNome());
+                }
+                try {
+                    tavoli.get(selected).getOrdini().add(tavoli.get(selected).getMenu().getBibite().get(Integer.valueOf(in.next())));
+                } catch (Exception e){
+                    System.out.println("Invalid choice! Order failed.");
+                }
+                System.out.println(tavoli.get(selected).prezzoTot());
+            } catch (Exception e) {
+            }
 
-        tavoli.get(0).ordina(2, 3);
-        System.out.println(tavoli.get(0).prezzoTot());
+        }
+
     }
 
     static void loadTables(int howManyTables){

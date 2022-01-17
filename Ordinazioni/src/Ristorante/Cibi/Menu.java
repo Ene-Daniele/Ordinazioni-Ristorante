@@ -32,4 +32,19 @@ public class Menu {
     public ArrayList<Alimenti> getCibo() {
         return cibo;
     }
+
+    public static void addMoreFood(double price, String food, int type){
+
+        switch (type){
+            case 1:
+                cibo.add(new Alimenti(price, food));
+                break;
+            case 0:
+                bibite.add(new Alimenti(price, food));
+                break;
+            default:
+                System.out.println("Invalid food type!");
+                break;
+        }
+    }
 }

@@ -13,4 +13,8 @@ public class Alimenti {
     public double getPrezzo() {
         return prezzo;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }
